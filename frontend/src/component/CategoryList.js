@@ -1,13 +1,14 @@
 
 import React from 'react';
  const CategoryList = ({ categories }) => {
-  console.log("categories:", categories)
+  //console.log("categories:", categories)
   return (
-    <ul>
-      { categories.map((category, idx) =>
-          <li key={idx}>{category.name}</li>
+    <select>
+      <option value="all">All</option>
+      { categories.map((category) =>
+        <option value={category.name} key={category.name}>
+          {category.name}
+        </option>
       )}
-    </ul>
+    </select>
   );
-}
- export default CategoryList;
