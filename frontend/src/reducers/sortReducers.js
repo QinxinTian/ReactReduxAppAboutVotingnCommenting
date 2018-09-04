@@ -1,5 +1,5 @@
 import {
-  DEFINE_SORT_ORDER
+  CHANGE_SORT_ORDER
 } from '../actions'
  const defaultSortOrder = {
   field: 'voteScore',
@@ -7,7 +7,7 @@ import {
 };
  export default (state = defaultSortOrder, action) => {
   switch (action.type) {
-    case DEFINE_SORT_ORDER:
+    case CHANGE_SORT_ORDER:
       return {
         field: action.sort.field,
         order: action.sort.order
