@@ -1,13 +1,18 @@
 
 import React from 'react';
- const CategoryList = ({ categories }) => {
-  console.log("categories:", categories)
+ const postList = ({ Posts }) => {
+  /*console.log("postList:", postList)*/
   return (
-    <select>
-      <option value="all">All</option>
-      { categories.map((category) =>
-        <option value="category.name">{category.name}</option>
-    </select>
+    <div>
+      { posts.map((p) =>
+      <p key={p.id}> {p.title} </p>
+      <div key={p.id}>
+        <p><b>{p.title}</b></p>
+        <p>Score: {p.category}</p>
+        <p>Auhtor: {p.author}</p>
+        <p>Score: {p.voteScore}</p>
+        <p>{p.body}</p>
+      </div>
+      )}
+    </div>
   );
-}
- export default CategoryList;
