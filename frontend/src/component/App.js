@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories, receiveCategories, getPosts, receivePosts } from '../actions'
+import { getCategories, getPosts } from '../actions'
 import CategoryList from './CategoryList';
 import PostList from './PostList';
 import './App.css'
@@ -8,7 +8,7 @@ import './App.css'
    componentWillMount() {
     //console.log("componentWillMount...")
     this.props.getAllCategories();
-    this.props.getPosts();
+    this.props.getPosts('voteScore');
   }
    render() {
     /*console.log("render...")
@@ -43,9 +43,7 @@ import './App.css'
 }
  const mapDispatchToProps = (dispatch) => {
   return {
-    getAllCategories: (data) => dispatch(getCategories()),
-    receiveAllCategories: (data) => dispatch(receiveCategories()),
-    getPosts: (data) => dispatch(getPosts()),
-    receiveAllPosts: (data) => dispatch(receivePosts())
+    getAllCategories: () => dispatch(getCategories()),
+   getPosts: (sortBy) => dispatch(getPosts(sortBy)),
   }
 }
