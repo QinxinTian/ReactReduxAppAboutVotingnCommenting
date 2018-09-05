@@ -5,6 +5,8 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const GET_POST = 'GET_POST'
 @@ -9,6 +10,8 @@ export const REMOVE_POST = 'REMOVE_POST'
 export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER'
+export const DESCENDING_ORDER = 'desc'
+export const ASCENDING_ORDER = 'asc'
 /*define action creator*/
  export const addPost = (post) => ({
   type: ADD_POST,
@@ -25,13 +27,11 @@ const receivePosts = (posts) => ({
 export const getPosts = (sortOrder) => async (dispatch) => {
   try {
     const posts = await fetchPosts()
-    console.log("sortOrder", sortOrder)
-    if (sortOrder.order === 'desc') {
-          posts.sort( (a, b) => b[sortOrder.field] - a[sortOrder.field] )
-        } else {
-          posts.sort( (a, b) => a[sortOrder.field] - b[sortOrder.field] )
-        }
+    if (sortOrder.order === ASCENDING_ORDER) {
 
+          posts.sort( (a, b) => a[sortOrder.field] - b[sortOrder.field] )
+        } else {
+              posts.sort( (a, b) => b[sortOrder.field] - a[sortOrder.field] )
     dispatch(receivePosts(posts))
    } catch(err) {
     console.error("Error getting posts", err)

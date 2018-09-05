@@ -3,12 +3,11 @@ import React from 'react';
 import moment from 'moment';
 
  const postList = ({ Posts }) => {
-  /*console.log("postList:", postList)*/
   return (
     <div>
       { posts.map((p) =>
       <p key={p.id}> {p.title} </p>
-      <div key={p.id}>
+      <div key={p.timestamp}>
         <p><b>{p.title}</b></p>
         <p>Score: {p.category}</p>
         <p>Auhtor: {p.author}</p>
