@@ -1,5 +1,9 @@
-import { fetchCategories, fetchPosts } from '../utils/api.js'
- /*define action constants*/
+import {
+  fetchCategories,
+  fetchPosts,
+  increasePostScoreAPI,
+  decreasePostScoreAPI
+} from '../utils/api.js' /*define action constants*/
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const GET_POST = 'GET_POST'
@@ -54,11 +58,28 @@ export const changeSortOrder = (sortOrder) => ({
   type: CHANGE_SORT_ORDER,
   sort: sortOrder
 })
-export const increasePostScore = (id) => ({
-  type: INCREASE_POST_SCORE,
-  id
-})
- export const decreasePostScore = (id) => ({
-  type: DECREASE_POST_SCORE,
-  id
-})
+
+export const increasePostScore = (id) => async(dispatch) => {
+  try {
+    const result = await increasePostScoreAPI(id)
+    dispatch({
+      type: INCREASE_POST_SCORE,
+      id
+    })
+  }
+  catch(err) {
+    console.error("Error increasing post voteScore", err)
+  }
+}
+export const decreasePostScore = (id) => async(dispatch) => {
+  try {
+    const result = await decreasePostScoreAPI(id)
+    dispatch({
+      type: DECREASE_POST_SCORE,
+      id
+    })
+  }
+  catch(err) {
+    console.error("Error decreasing post voteScore", err)
+  }
+}
