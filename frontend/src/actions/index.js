@@ -7,6 +7,10 @@ export const GET_POST = 'GET_POST'
 export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER'
 export const DESCENDING_ORDER = 'desc'
 export const ASCENDING_ORDER = 'asc'
+export const INCREASE_POST_SCORE = 'INCREASE_POST_SCORE'
+export const DECREASE_POST_SCORE = 'DECREASE_POST_SCORE'
+ export const INCREASE_COMMENT_SCORE = 'INCREASE_COMMENT_SCORE'
+export const DECREASE_COMMENT_SCORE = 'DECREASE_COMMENT_SCORE'
 /*define action creator*/
  export const addPost = (post) => ({
   type: ADD_POST,
@@ -49,4 +53,12 @@ const receiveCategories = (data.categories) => ({
 export const changeSortOrder = (sortOrder) => ({
   type: CHANGE_SORT_ORDER,
   sort: sortOrder
+})
+export const increasePostScore = (id) => ({
+  type: INCREASE_POST_SCORE,
+  id
+})
+ export const decreasePostScore = (id) => ({
+  type: DECREASE_POST_SCORE,
+  id
 })
