@@ -1,63 +1,47 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories, getPosts, changeSortOrder } from '../actions'
+import {
+  getCategories,
+  getPosts,
+  changeSortOrder,
+  ASCENDING_ORDER,
+  DESCENDING_ORDER
+} from '../actions'
 import CategoryList from './CategoryList';
 import PostList from './PostList';
 import './App.css'
  class App extends Component {
    componentWillMount() {
-     console.log("state", this.state);
-     console.log("props", this.props);    this.props.getAllCategories();
-    this.props.getPosts('this.props.state.sort');
+     console.log("props", this.props);
+     this.props.getAllCategories();
+    this.props.getPosts('this.props.sort');
   }
-  onSortOrderClicked(e) {
-    if (e.type === 'click' && e.clientX !== 0 && e.clientY !== 0) {
-      this.onSortOrderChanged(e);
-    } else {
-      console.log('prevent onclick on keypress');
-    }
-  }
-   onSortOrderChanged(event){
-    this.props.changeSortOrder({
-      field: 'date',
-      order: event.target.value
-    });
-  }
+  onSortFieldChanged = (event) => {
+   const { sort } = this.props;
+   const newSort = {
+     field: event.target.value,
+     order: sort.order
+   };
+   this.props.changeSortOrder(newSort);
+   this.props.getPosts(newSort);
+ }
    render() {
     /*console.log("render...")
     const { categories } = this.props;
     */
-    const { categories, posts } = this.props.state;
+    const { categories, posts, order } = this.props;
     return (
       <div>
-        <h2>Sort by</h2>
-          <select>
-          <option value="votes" selected>Votes</option>
-          <option value="date" default>Date</option>
+        <h2>Posts order</h2>
+        <select value={sort.field} onChange={this.onSortFieldChanged}>
+          <option value="voteScore">Votes</option>
+          <option value="timestamp">Timestamp</option>
           </select>
-          <div onClick={this.onSortOrderClicked.bind(this)}>
-            <label>
-              <input
-                type="radio"
-                name="order"
-                value="asc"
-                onChange={this.onSortOrderChanged.bind(this)}
-                checked={this.props.state.sort.order === 'asc'}/>
-                Ascending
-              </label>
-          </div>
-
-          <div onClick={this.onSortOrderClicked.bind(this)}>
-            <label>
-              <input
-                type="radio"
-                name="order"
-                value="desc"
-                onChange={this.onSortOrderChanged.bind(this)}
-                checked={this.props.state.sort.order === 'desc'}/>
-                Descending
-              </label>
-          </div>
+          &nbsp;
+          <select value={sort.order} onChange={this.onSortOrderChanged}>
+            <option value={ASCENDING_ORDER}>Ascending</option>
+            <option value={DESCENDING_ORDER}>Descending</option>
+          </select>
           </div>
        </div>
     );
@@ -65,7 +49,7 @@ import './App.css'
 }
  const mapStateToProps = (state) => {
   /*console.log("mapStateToProps - state:", state);*/
-  return { state }
+  return { ...state }
   const mapDispatchToProps = (dispatch) => {
     return {
       getAllCategories(){

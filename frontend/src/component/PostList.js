@@ -8,11 +8,9 @@ import moment from 'moment';
       { posts.map((p) =>
       <p key={p.id}> {p.title} </p>
       <div key={p.timestamp}>
-        <p><b>{p.title}</b></p>
-        <p>Score: {p.category}</p>
-        <p>Auhtor: {p.author}</p>
-        <p>Score: {p.voteScore}</p>
-        <p>Date: {moment(p.timestamp).format("MMM-DD-YYYY hh:mma")}</p>
+      <h3><b>{p.title}</b></h3>
+      <p>Date: {moment(p.timestamp).format("MMM-DD-YYYY hh:mma")} :: Author: {p.author} :: Category [{p.category}] :: Score: {p.voteScore}</p>
+      <p>{p.body}</p>
         <p>{p.body}</p>
       </div>
       )}
