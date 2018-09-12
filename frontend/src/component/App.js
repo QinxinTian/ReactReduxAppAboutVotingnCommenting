@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   getCategories,
@@ -31,6 +32,8 @@ import './App.css'
     */
     const { categories, posts, order } = this.props;
     return (
+      <Router>
+      <div>
       <div>
         <h2>Posts order</h2>
         <select value={sort.field} onChange={this.onSortFieldChanged}>
@@ -44,6 +47,20 @@ import './App.css'
           </select>
           </div>
        </div>
+       <div>
+       <h2>Categories</h2>
+            <CategoryList categories={categories} />
+            </div>
+            <Route exact path="/" render={ () => (
+            <div>
+              <h2>Posts</h2>
+              <div>
+                <PostList posts={posts} {...this.props} />
+              </div>
+            </div>
+          )} />
+        </div>
+      </Router>
     );
   }
 }
