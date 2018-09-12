@@ -16,7 +16,6 @@ import './App.css'
    componentWillMount() {
      console.log("props", this.props);
      this.props.getAllCategories();
-    this.props.getPosts('this.props.sort');
   }
   onSortFieldChanged = (event) => {
    const { sort } = this.props;
@@ -25,7 +24,6 @@ import './App.css'
      order: sort.order
    };
    this.props.changeSortOrder(newSort);
-   this.props.getPosts(newSort);
  }
    render() {
     /*console.log("render...")

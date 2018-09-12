@@ -32,14 +32,9 @@ const receivePosts = (posts) => ({
   posts
 })
 
-export const getPosts = (sortOrder) => async (dispatch) => {
+export const getPosts = () => async (dispatch) => {
   try {
     const posts = await fetchPosts()
-    if (sortOrder.order === ASCENDING_ORDER) {
-
-          posts.sort( (a, b) => a[sortOrder.field] - b[sortOrder.field] )
-        } else {
-              posts.sort( (a, b) => b[sortOrder.field] - a[sortOrder.field] )
     dispatch(receivePosts(posts))
    } catch(err) {
     console.error("Error getting posts", err)
@@ -58,10 +53,12 @@ export const changeSortOrder = (sortOrder) => ({
   type: CHANGE_SORT_ORDER,
   sort: sortOrder
 })
+export const increasePostScore = (id, posts) => async (dispatch) => {
 
-export const increasePostScore = (id) => async(dispatch) => {
+export const getPosts = () => async(dispatch) => {
   try {
-    const result = await increasePostScoreAPI(id)
+    await increasePostScoreAPI(id)
+    await increasePostScoreAPI(id)
     dispatch({
       type: INCREASE_POST_SCORE,
       id
@@ -71,9 +68,9 @@ export const increasePostScore = (id) => async(dispatch) => {
     console.error("Error increasing post voteScore", err)
   }
 }
-export const decreasePostScore = (id) => async(dispatch) => {
+export const decreasePostScore = (id) => async (dispatch) => {
   try {
-    const result = await decreasePostScoreAPI(id)
+    await decreasePostScoreAPI(id)
     dispatch({
       type: DECREASE_POST_SCORE,
       id
