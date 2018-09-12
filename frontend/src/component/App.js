@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
+  import Root from './Root';
   getCategories,
   getPosts,
   changeSortOrder,
@@ -11,9 +12,6 @@ import {
 
 } from '../actions'
 import Category from './Category';
-import PostList from './PostList';
-import CategoryHeader from './CategoryHeader';
-import SortingHeader from './SortingHeader';
 
 import './App.css'
  class App extends Component {
@@ -43,27 +41,17 @@ import './App.css'
             />
           )} />
 
-          <Route exact path="/" render={ () => (
-            <div>
-            <SortingHeader
-             sort={sort}
-            changeOrderFunc={changeSortOrder}
-              />
-            <CategoryHeader
-            categories={categories}
-            filterFunc={setCategoryFilter}
+          <Route exact path="/" render={ ({ match }) => (
+            <Root
+              sort={sort}
+              changeOrderFunc={changeSortOrder}
+              categories={categories}
+              filterFunc={setCategoryFilter}
+              posts={posts}
+              filter={filter}
+              increasePostScoreFunc={increasePostScore}
+              decreasePostScoreFunc={decreasePostScore}
             />
-            <h2>Posts</h2>
-            <div>
-            <PostList
-            posts={posts}
-            sort={sort}
-            filter={filter}
-            increasePostScoreFunc={increasePostScore}
-            decreasePostScoreFunc={decreasePostScore}
-            />
-            </div>
-            </div>
           )} />
         </div>
       </Router>
