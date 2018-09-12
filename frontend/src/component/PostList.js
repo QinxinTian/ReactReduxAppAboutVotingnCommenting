@@ -6,23 +6,28 @@ import { ASCENDING_ORDER } from '../actions';
 
 const PostList = ({
   posts,
-  increasePostScore,
-  decreasePostScore,
+  increasePostScoreFunc,
+  decreasePostScoreFunc,
   sort,
   filter
 }) => {
+  let filteredPosts = [];
    if (filter !== '') {
-    posts = posts.filter((p) => p.category === filter)
-  }   if (sort.order === ASCENDING_ORDER) {
-    posts.sort( (a, b) => a[sort.field] - b[sort.field] )
+     filteredPosts = posts.filter((p) => p.category === filter)
+       } else {
+         filteredPosts = posts;
+         }
+         if (sort.order === ASCENDING_ORDER) {
+    filtersPosts.sort( (a, b) => a[sort.field] - b[sort.field] )
   } else {
-    posts.sort( (a, b) => b[sort.field] - a[sort.field] )
+    filtersPosts.sort( (a, b) => b[sort.field] - a[sort.field] )
   }  return (
     <div>
-    { posts.length === 0 &&
-            <div><p>No posts for [{filter}] category</p></div>
+    { filterPosts.length === 0 &&
+            <div><p>No posts for [{ filter }] category</p></div>
           }
-           { posts && posts.map((p) =>      <p key={p.id}> {p.title} </p>
+           { filterPosts && filterPosts.map((p) =>
+             <p key={p.id}> {p.title} </p>
       <div key={p.timestamp}>
       <h3><b>{p.title}</b></h3>
       <p>Date: {moment(p.timestamp).format("MMM-DD-YYYY hh:mma")} :: Author: {p.author} :: Category [{p.category}]</p>
@@ -31,10 +36,19 @@ const PostList = ({
         <Score
           id={p.id}
           score={p.voteScore}
-          increaseFn={increasePostScore}
-          decreaseFn={decreasePostScore}
+          increaseScoreFn={increasePostScoreFunc}
+          decreaseScoreFn={decreasePostScoreFunc}
         />
       </div>
       )}
     </div>
   );
+}
+PostList.propTypes = {
+  sort: PropTypes.object.isRequired,
+  filter: PropTypes.string.isRequired,
+  increasePostScoreFunc: PropTypes.func.isRequired,
+  decreasePostScoreFunc: PropTypes.func.isRequired
+}
+
+export default PostList;

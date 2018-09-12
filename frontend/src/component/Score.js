@@ -1,11 +1,17 @@
 import React from 'react';
- const Score = ({ id, score, increaseFn, decreaseFn }) => {
+import PropTypes from 'prop-types';
+
+ const Score = ({ id, score, increaseScoreFunc, decreaseFn }) => {
   return (
     <div>
-      <button type="button" onClick={ () => increaseFn(id) }>+</button>
+      <button type="button" onClick={ () => increaseScoreFunc(id) }>+</button>
       <span style={{margin:5}}>Score: { score }</span>
-      <button type="button" onClick={ () => decreaseFn(id) }>-</button>
+      <button type="button" onClick={ () => decreaseScoreFunc(id) }>-</button>
     </div>
   );
+}
+Score.propTypes = {
+  increaseScoreFunc: PropTypes.func.isRequired,
+  decreaseScoreFunc: PropTypes.func.isRequired
 }
  export default Score;
