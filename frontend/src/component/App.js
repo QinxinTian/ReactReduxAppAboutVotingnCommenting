@@ -7,6 +7,7 @@ import {
   changeSortOrder,
   increasePostScore,
   decreasePostScore,
+  setCategoryFilter,
   ASCENDING_ORDER,
   DESCENDING_ORDER
 } from '../actions'
@@ -26,6 +27,10 @@ import './App.css'
    };
    this.props.changeSortOrder(newSort);
  }
+ onCategoryFilterChanged = (event) => {
+    const newFilter = event.target.value;
+    this.props.setCategoryFilter(newFilter);
+  }
    render() {
     /*console.log("render...")
     const { categories } = this.props;
@@ -49,7 +54,7 @@ import './App.css'
        </div>
        <div>
        <h2>Categories</h2>
-            <CategoryList categories={categories} />
+            <CategoryList categories={categories} onChange = {this.onCategoryFilterChanged}/>
             </div>
             <Route exact path="/" render={ () => (
             <div>
@@ -57,6 +62,16 @@ import './App.css'
               <div>
                 <PostList posts={posts} {...this.props} />
               </div>
+            </div>
+          )} />
+          <Route exact path="/:category" render= { () => (
+            <div>
+              <h2>Posts by category</h2>
+            </div>
+          )} />
+           <Route exact path="/:category/:post_id" render= { () => (
+            <div>
+              <h2>Posts detail</h2>
             </div>
           )} />
         </div>
@@ -83,6 +98,9 @@ import './App.css'
   },
   decreasePostScore(id){
     dispatch(decreasePostScore(id));
+  },
+  setCategoryFilter(filter){
+    dispatch(setCategoryFilter(filter));
       }
     }
   }

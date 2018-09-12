@@ -15,6 +15,8 @@ export const INCREASE_POST_SCORE = 'INCREASE_POST_SCORE'
 export const DECREASE_POST_SCORE = 'DECREASE_POST_SCORE'
  export const INCREASE_COMMENT_SCORE = 'INCREASE_COMMENT_SCORE'
 export const DECREASE_COMMENT_SCORE = 'DECREASE_COMMENT_SCORE'
+export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER'
+
 /*define action creator*/
  export const addPost = (post) => ({
   type: ADD_POST,
@@ -52,6 +54,11 @@ const receiveCategories = (data.categories) => ({
 export const changeSortOrder = (sortOrder) => ({
   type: CHANGE_SORT_ORDER,
   sort: sortOrder
+})
+//action creator to define a category filter;
+export const setCategoryFilter = (categoryFilter) => ({
+  type: SET_CATEGORY_FILTER,
+  filter: categoryFilter
 })
 export const increasePostScore = (id, posts) => async (dispatch) => {
 
