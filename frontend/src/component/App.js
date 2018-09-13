@@ -12,7 +12,7 @@ import {
 
 } from '../actions'
 import Category from './Category';
-
+import PostDetail from './PostDetail';
 import './App.css'
  class App extends Component {
    this.props.getPosts();
@@ -25,11 +25,20 @@ import './App.css'
     return (
       <Router>
       <div>
-      <Route exact path="/:category/:post_id" render= { () => (
-            <div>
-            <h2>Posts detail</h2>
-            </div>
-          )} />
+      <Route exact path="/:category/:postId" render= { ({ match }) => {
+            const { postId } = match.params;
+            const post = posts.find( (p) => p.id === postId)
+             if (!post) {
+              return (<p>No post found for post id ${postId}</p>);
+            }
+             return (
+              <PostDetail
+                post={post}
+                increasePostScoreFunc={increasePostScore}
+                decreasePostScoreFunc={decreasePostScore}
+              />
+            );
+          }} />
           <Route exact path="/:category" render={ ({ match }) => (
             <Category
               sort={sort}
@@ -41,7 +50,7 @@ import './App.css'
             />
           )} />
 
-          <Route exact path="/" render={ ({ match }) => (
+          <Route exact path="/" render={ () => (
             <Root
               sort={sort}
               changeOrderFunc={changeSortOrder}
