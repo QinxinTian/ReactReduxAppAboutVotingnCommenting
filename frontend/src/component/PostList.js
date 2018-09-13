@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+
 import moment from 'moment';
 import Score from './Score';
 import { ASCENDING_ORDER } from '../actions';
@@ -28,9 +30,10 @@ const PostList = ({
           }
            { filterPosts && filterPosts.map((p) =>
              <p key={p.id}> {p.title} </p>
-      <div key={p.timestamp}>
-      <h3><b>{p.title}</b></h3>
-      <p>Date: {moment(p.timestamp).format("MMM-DD-YYYY hh:mma")} :: Author: {p.author} :: Category [{p.category}]</p>
+      <Link to={`/${p.category}/${p.id}`}>
+                <h3><b>{p.title}</b></h3>
+              </Link>
+              <p>Date: {moment(p.timestamp).format("MMM-DD-YYYY hh:mma")} :: Author: {p.author} :: Category [{p.category}]</p>
       <p>{p.body}</p>
         <p>{p.body}</p>
         <Score
